@@ -26,7 +26,7 @@ const isEditing = ref(false)
 function flipEditingStatus() {
   isEditing.value = !isEditing.value
 
-  if (isEditing.value === false) {
+  if (isEditing.value === false && task.value !== prop.todo.task) {
     todoStore.editTaskInTodo(prop.todo.uuid, task.value)
   }
 }
