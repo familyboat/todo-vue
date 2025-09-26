@@ -5,6 +5,7 @@ import {
   clearTodoInDb,
   getAllTodosFromDb,
   getTodoInDb,
+  markTodoAsCreatedInDb,
   markTodoAsDeletedInDb,
   markTodoAsDoneInDb,
 } from '../../db/todo'
@@ -97,8 +98,8 @@ describe('testing for todo app db', () => {
     expect(todos.length).toBe(1)
   })
 
-  it('markTodoAsDoneInDb and markTodoAsDeletedInDb should work', async () => {
-    let innerTodo
+  it('markTodoAsDoneInDb and markTodoAsDeletedInDb and markTodoAsCreatedInDb should work', async () => {
+    let innerTodo: Todo
     await addTodoToDb(todo)
     await markTodoAsDoneInDb(todo.uuid)
     innerTodo = await getTodoInDb(todo.uuid)
@@ -107,5 +108,9 @@ describe('testing for todo app db', () => {
     await markTodoAsDeletedInDb(todo.uuid)
     innerTodo = await getTodoInDb(todo.uuid)
     if (innerTodo) expect(innerTodo.status).toBe(TodoStatus.deleted)
+
+    await markTodoAsCreatedInDb(todo.uuid)
+    innerTodo = await getTodoInDb(todo.uuid)
+    if (innerTodo) expect(innerTodo.status).toBe(TodoStatus.created)
   })
 })

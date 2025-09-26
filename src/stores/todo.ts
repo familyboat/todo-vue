@@ -1,6 +1,7 @@
 import {
   addTodoToDb,
   getAllTodosFromDb,
+  markTodoAsCreatedInDb,
   markTodoAsDeletedInDb,
   markTodoAsDoneInDb,
 } from '@/db/todo'
@@ -150,6 +151,17 @@ export const useTodoStore = defineStore('todo', () => {
   }
 
   /**
+   * 将回退为已创建的 todo 的状态修改为 created
+   */
+  function markTodoAsCreated(uuid: string) {
+    const target = todoList.value.find((todo) => todo.uuid === uuid)
+    if (target) {
+      target.status = TodoStatus.created
+      markTodoAsCreatedInDb(uuid)
+    }
+  }
+
+  /**
    * 返回状态为已创建的 todo 列表
    */
   const createdTodoList = computed(() => {
@@ -187,6 +199,7 @@ export const useTodoStore = defineStore('todo', () => {
     createTodoFrom,
     markTodoAsDone,
     markTodoAsDeleted,
+    markTodoAsCreated,
     loadFromDb,
   }
 })

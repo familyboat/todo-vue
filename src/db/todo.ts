@@ -46,6 +46,13 @@ export async function markTodoAsDeletedInDb(uuid: string) {
   await markTodoInDb(uuid, TodoStatus.deleted)
 }
 
+/**
+ * 将 todo 的状态标记为：已创建
+ */
+export async function markTodoAsCreatedInDb(uuid: string) {
+  await markTodoInDb(uuid, TodoStatus.created)
+}
+
 async function markTodoInDb(uuid: string, status: TodoStatus) {
   const todo = await getTodoInDb(uuid)
   if (todo) {

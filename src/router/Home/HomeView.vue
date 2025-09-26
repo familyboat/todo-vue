@@ -43,7 +43,14 @@ import { routerConfig } from '@/configs'
       <p>
         <router-link :to="routerConfig.ToDoPath">前往 to-do 应用</router-link>
       </p>
-      <p>本应用的源码托管在 xxx，本应用的源码采用的是 MIT 开源协议。</p>
+      <p>
+        本应用的源码托管在 Github 上，前往<a
+          href="https://github.com/familyboat/todo-vue/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >仓库地址</a
+        >，本应用的源码采用的是 MIT 开源协议。
+      </p>
     </main>
   </section>
 </template>
