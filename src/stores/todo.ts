@@ -1,5 +1,6 @@
 import {
   addTodoToDb,
+  editTaskInTodoInDb,
   getAllTodosFromDb,
   markTodoAsCreatedInDb,
   markTodoAsDeletedInDb,
@@ -129,6 +130,19 @@ export const useTodoStore = defineStore('todo', () => {
   }
 
   /**
+   * 对 todo 的 task 进行编辑
+   */
+  function editTaskInTodo(uuid: string, task: string) {
+    const target = todoList.value.find((todo) => todo.uuid === uuid)
+    if (target) {
+      const now = new Date()
+      target.task = task
+      target.modifiedAt = now.toUTCString()
+      editTaskInTodoInDb(target)
+    }
+  }
+
+  /**
    * 将已完成的 todo 的状态修改为 done
    */
   function markTodoAsDone(uuid: string) {
@@ -197,6 +211,7 @@ export const useTodoStore = defineStore('todo', () => {
     deletedTodoList,
 
     createTodoFrom,
+    editTaskInTodo,
     markTodoAsDone,
     markTodoAsDeleted,
     markTodoAsCreated,

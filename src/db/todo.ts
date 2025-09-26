@@ -33,6 +33,18 @@ export async function addTodoToDb(todo: Todo) {
 }
 
 /**
+ * 编辑 todo 的 task 信息，更新 modifiedAt 信息
+ */
+export async function editTaskInTodoInDb(todo: Todo) {
+  const innerTodo = await getTodoInDb(todo.uuid)
+  if (innerTodo) {
+    innerTodo.task = todo.task
+    innerTodo.modifiedAt = todo.modifiedAt
+    await db.put(storeName, innerTodo)
+  }
+}
+
+/**
  * 将 todo 的状态标记为：已完成
  */
 export async function markTodoAsDoneInDb(uuid: string) {

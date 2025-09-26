@@ -3,6 +3,7 @@ import 'fake-indexeddb/auto'
 import {
   addTodoToDb,
   clearTodoInDb,
+  editTaskInTodoInDb,
   getAllTodosFromDb,
   getTodoInDb,
   markTodoAsCreatedInDb,
@@ -112,5 +113,15 @@ describe('testing for todo app db', () => {
     await markTodoAsCreatedInDb(todo.uuid)
     innerTodo = await getTodoInDb(todo.uuid)
     if (innerTodo) expect(innerTodo.status).toBe(TodoStatus.created)
+  })
+
+  it('editTaskInTodoInDb should work', async () => {
+    await addTodoToDb(todo)
+    await editTaskInTodoInDb({
+      ...todo,
+      task: 'test1',
+    })
+    const innerTodo: Todo = await getTodoInDb(todo.uuid)
+    if (innerTodo) expect(innerTodo.task).toBe('test1')
   })
 })
