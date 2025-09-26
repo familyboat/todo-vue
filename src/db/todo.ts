@@ -37,7 +37,7 @@ export async function addTodoToDb(todo: Todo) {
  */
 export async function editTaskInTodoInDb(todo: Todo) {
   const innerTodo = await getTodoInDb(todo.uuid)
-  if (innerTodo) {
+  if (innerTodo && innerTodo.task !== todo.task) {
     innerTodo.task = todo.task
     innerTodo.modifiedAt = todo.modifiedAt
     await db.put(storeName, innerTodo)

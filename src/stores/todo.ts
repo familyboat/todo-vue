@@ -134,7 +134,7 @@ export const useTodoStore = defineStore('todo', () => {
    */
   function editTaskInTodo(uuid: string, task: string) {
     const target = todoList.value.find((todo) => todo.uuid === uuid)
-    if (target) {
+    if (target && target.task !== task) {
       const now = new Date()
       target.task = task
       target.modifiedAt = now.toUTCString()
