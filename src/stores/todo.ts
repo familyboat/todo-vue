@@ -114,6 +114,8 @@ export const useTodoStore = defineStore('todo', () => {
    * 从指派的 task 创建一个新的 todo
    */
   function createTodoFrom(task: string) {
+    if (task === '') return
+
     const now = new Date()
 
     const todo: Todo = {

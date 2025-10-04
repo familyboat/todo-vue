@@ -6,8 +6,10 @@ const todoStore = useTodoStore()
 const task = ref('')
 
 function createTodo() {
-  todoStore.createTodoFrom(task.value)
-  task.value = ''
+  if (task.value) {
+    todoStore.createTodoFrom(task.value)
+    task.value = ''
+  }
 }
 </script>
 
