@@ -14,20 +14,22 @@ import { computed, ref } from 'vue'
  */
 type DateString = string
 
-export enum TodoStatus {
+export const TodoStatus = {
   /**
    * 已创建
    */
-  'created',
+  created: 0,
   /**
    * 已完成
    */
-  'done',
+  done: 1,
   /**
    * 已删除
    */
-  'deleted',
-}
+  deleted: 2,
+} as const
+
+export type TodoStatus = (typeof TodoStatus)[keyof typeof TodoStatus]
 
 /**
  * 对 todo 的状态值序列化
@@ -159,9 +161,9 @@ export const useTodoStore = defineStore('todo', () => {
    * 将已删除的 todo 的状态修改为 deleted
    */
   function markTodoAsDeleted(uuid: string) {
-    const tartget = todoList.value.find((todo) => todo.uuid === uuid)
-    if (tartget) {
-      tartget.status = TodoStatus.deleted
+    const target = todoList.value.find((todo) => todo.uuid === uuid)
+    if (target) {
+      target.status = TodoStatus.deleted
       markTodoAsDeletedInDb(uuid)
     }
   }
